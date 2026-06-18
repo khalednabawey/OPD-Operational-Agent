@@ -1,0 +1,83 @@
+services:
+  opd-agent:
+    build: .
+    container_name: opd_agent
+    command: ["-m", "streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.enableCORS=false", "--server.enableXsrfProtection=false"]
+    ports:
+      - "8501:8501"
+    environment:
+      - CHROMA_HOST=${CHROMA_HOST}
+      - EMBEDDING_SERVER_URL=${EMBEDDING_SERVER_URL}
+      - DATABASE_URL=postgresql://postgres:postgres@chat_db:5432/opd_db
+      # Ensure these are set in your .env file
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_MODEL=${GROQ_MODEL}
+    volumes:
+      - ./data:/app/data
+      # - .:/app  # Optional: mount local code for development
+    depends_on:
+      embedding-server:
+        condition: service_healthy
+      chat_db:
+        condition: service_healthy
+    restart: always
+
+  chat_db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=opd_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d opd_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  chroma-server:
+    image: chromadb/chroma
+    container_name: chroma_server
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - ANONYMIZED_TELEMETRY=False
+
+  embedding-server:
+    # Use the official Sentence-Transformers serving image
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-latest
+    container_name: embedding_server
+    command: --model-id BAAI/bge-small-en-v1.5
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+    ports:
+      - "7997:80"
+
+  policy-ingestor:
+    build: .
+    container_name: policy_ingestor
+    environment:
+      - CHROMA_HOST=${CHROMA_HOST}
+      - EMBEDDING_SERVER_URL=${EMBEDDING_SERVER_URL}
+      - DATABASE_URL=postgresql://postgres:postgres@chat_db:5432/opd_db
+    # Example: If you wanted to force a rebuild, you'd add this line.
+    # command: ["policy_rag.py", "--force"]
+    depends_on:
+      embedding-server:
+        condition: service_healthy
+      chat_db:
+        condition: service_healthy
+    restart: "no"
+
+volumes:
+  chroma_data:
+  postgres_data:

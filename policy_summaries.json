@@ -1,0 +1,41 @@
+{
+  "Documentation in OPD": {
+    "summary": "Ensure documentation completeness to reduce revenue leakage.\n- Key thresholds: \n  - Compliance ≥100% → 110% bonus\n  - Compliance ≥90% → 90% bonus\n  - Compliance ≥85% → 85% bonus\n  - Compliance ≥75% → 75% bonus\n  - Compliance ≥65% → 65% bonus\n  - Compliance ≥50% → 50% bonus\n  - Compliance <50% → 25% bonus\n- Owners: Physician, OPD Manager, HR\n- Escalation: Red flag email if ≥90%; final deduction after month end\n- Other rules: Weekly compliance reports, automated triggers for green/red flags, monthly full report for validation and approval",
+    "related_kpis": [
+      "Service Leakage %",
+      "Actual COE Compliance %",
+      "Patient Retention %"
+    ]
+  },
+  "OPD Delay policy": {
+    "summary": "Reinforce punctuality and commitment to scheduled clinic hours.\n- Delay threshold: ≥15 minutes after scheduled start time\n- Deductions: \n  - ≥20% of working hours → 50% deduction of monthly bonus for management roles\n  - Physician deductions based on % delay per month\n- Owners: Physicians, OPD Managers, Department Heads, HRBP, Quality, Senior Management\n- Escalation: Automated emails with final monthly delay percentage and disciplinary action\n- Time window: Bi-monthly delay calculation, monthly report and deduction application\n- Deduction amounts: 50% of monthly bonus for management roles, variable for physicians based on delay percentage",
+    "related_kpis": [
+      "No-Show %",
+      "Patient Retention %",
+      "Doctor PMS %"
+    ]
+  },
+  "OPD Cancellations and Modifications policy": {
+    "summary": "Ensure continuity of care and minimize disruptions by maintaining consistent clinic schedules.\n- Purpose: Protect patient satisfaction and support operational efficiency.\n- Key thresholds: \n  - Planned cancellations: ≥4 per month for Exclusive consultants require approval.\n  - Unplanned cancellations: ≤24 working hours before clinic start time.\n  - Critical cancellations: ≤1 hour before clinic start time.\n- Responsible owners: \n  - Owners: Physician, OPD Manager, HR, Medical Director.\n- Escalation steps: \n  - Red flag email for unplanned cancellations.\n  - Final deduction after month end.\n- Quantitative rules: \n  - 2 days deducted from salary for each absence day for Exclusive consultants.\n  - Repeated absences (≥2 in the same month) for Non-Exclusive consultants may result in bonus holding.\n  - Deductions from annual leave balance for planned cancellations without approval.",
+    "related_kpis": [
+      "No. Cancelled Clinics",
+      "Total Losses Revenue_Cancellation_Modification",
+      "Service Leakage %"
+    ]
+  },
+  "Doctor Time Management Policy": {
+    "summary": "Optimize physician time allocation to reduce patient waiting time and scheduling conflicts.\n- Total weekly working hours per physician: 48 hours (40 hours OPD, 8 hours inpatient rounds and elective OR time)\n- Clinic hours are protected: no elective operations, inpatient rounds, or BD meetings during clinic times\n- Minimum buffer: 1 hour before and after clinic hours for elective operations, 1.5 hours before clinic start for BD activities\n- Back-to-back clinics: minimum 90-minute travel buffer, no overbooking on first clinic\n- Responsible owners: Physician, OPD Manager, HR\n- Escalation: disciplinary action for unplanned clinic changes due to BD activities, logging and approval by Medical Director for emergency/urgent ORs\n- Deductions: total operation hours deducted from physician weekly working hours for conflicts with clinic time",
+    "related_kpis": [
+      "Doctor PMS %",
+      "No-Show %"
+    ]
+  },
+  "OPD Procedure scope of practice": {
+    "summary": "Ensure patient safety and procedure compliance in OPD.\n- Purpose: Ensure documentation completeness and patient safety.\n- Key thresholds: \n  - Compliance with procedure documentation ≥ 100% \n  - Non-compliance with infection control measures → disciplinary action\n- Responsible owners: \n  - Physician\n  - OPD Manager\n  - Nursing staff\n- Escalation: \n  - Red flag email for non-compliance with procedure documentation or infection control\n  - Final deduction after month-end for persistent non-compliance\n- Quantitative rules: \n  - Pre-procedure medical evaluation within 30 days\n  - Physical examination within 7 days prior to procedure\n  - Medication administration recorded in patient's medical care plan\n  - Restricted medications not allowed in OPD procedure rooms\n  - Patient weight recorded for weight-based dosing\n  - Previous severe adverse events considered for treatment planning",
+    "related_kpis": [
+      "No. Services",
+      "Charge per case",
+      "Service Leakage %"
+    ]
+  }
+}
